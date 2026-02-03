@@ -18,7 +18,14 @@ export const handler = async (ctx) => {
 
     const currentUrl = new URL(`${params && params.endsWith('.htm') ? params : `${params}.htm`}${queryString ? `?${queryString}` : ''}`, rootUrl).href;
 
-    const { data: response } = await got(currentUrl);
+    const { data: response } = await got({
+    method: 'get',
+    url: currentUrl,
+    headers: {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Referer': 'https://www.1lou.me',
+    },
+});
 
     const $ = load(response);
 
